@@ -24,12 +24,14 @@
 
     <p>Задание 2</p>
     <p>ИМЯ, РАСТЕНИЕ, ЖИВОТНОЕ, РЕКА</p>
-    <form id="form" onsubmit="return startGame(this)" method="post">
+    <p id="hod">ХОДИТ ПЕРВЫЙ ИГРОК</p>
+    <p id="letter"></p>
+    <form id="form">
         <label for="name">Имя: </label>
         <input type="text" name="name" placeholder="Имя" id="name"> <br><br>
 
-        <label for="contry">Город: </label>
-        <input type="text" name="contry" placeholder="Город" id="contry"> <br><br>
+        <label for="country">Город: </label>
+        <input type="text" name="country" placeholder="Город" id="country"> <br><br>
 
         <label for="plant">Растение: </label>
         <input type="text" name="plant" placeholder="Растение" id="plant"> <br><br>
@@ -38,9 +40,12 @@
         <input type="text" name="animal" placeholder="Животное" id="animal"> <br><br>
 
         <label for="river">Река: </label>
-        <input type="text" name="river" placeholder="Имя" id="Река"> <br><br>
+        <input type="text" name="river" placeholder="Река" id="river"> <br><br>
 
-        <button onclick="startGame()">Ответить</button>
+        <div id='err' style="color: red;"></div>
+
+        <input type="button" onclick="startGame()" value="Ответить">
     </form>
+    <script src="second.js"></script>
 </body>
 </html>
