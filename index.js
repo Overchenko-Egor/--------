@@ -30,9 +30,6 @@ function buttonClick(){
         }
         
     }
-    
-    console.log("Строк");
-    console.log(count_str);
     Max_length(arr_1, arr_2);
     Out(arr_1, arr_2, count_str);
 }
@@ -42,7 +39,6 @@ function OnInp(el){
 }
 
 function Out(arr_1, arr_2, count_str){
-    console.log("out");
     var out = document.getElementById('output');
     var string = "";
     var tmp = 0;
@@ -71,7 +67,6 @@ function Max_length(arr_1, arr_2){
     var index = 0;
     var max = 0;
     var c_str = 1;
-    c_str--;
     for (var i = 0; i < arr_2.length; i++){
         if(arr_2[i] > max){
             max = arr_2[i];
@@ -81,8 +76,10 @@ function Max_length(arr_1, arr_2){
     var sum = 0;
     for (var i = 0; i <= index; i++){
         sum += arr_2[i];
+        console.log(sum);
     }
     c_str = Math.floor(sum / 10);
+    if(c_str == 0) c_str++;
     if(sum % 10 == 0) c_str++;
     var leng = document.getElementById('length');
     leng.innerHTML = ("Самое длинное слово находится в " + c_str+ " строке");
