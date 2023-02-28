@@ -7,10 +7,6 @@
     <title>Задание 1</title>
 </head>
 <body>
-    <p>
-        <script src="./index.js"></script>
-    </p>
-    
     <p><b>Введите текст:</b><br>
         <input oninput="OnInp(this)" type="text">
     </p>
@@ -42,10 +38,10 @@
         <label for="river">Река: </label>
         <input type="text" name="river" id="river"> <br><br>
 
-        <div id='err' style="color: red;"></div>
-
         <input type="button" onclick="startGame()" value="Ответить">
     </form>
+    <p id="results"></p>
     <script src="second.js"></script>
+    <script src="./index.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@ let therd_player = [0, "", "", "", "", ""];
 let alphabet = "абвгдежзиклмнопрстуфхцчшэюя";
 let letter = "";
 let hod = document.getElementById('hod');
+let res = document.getElementById('results');
 
 random();
 let html_letter = document.getElementById('letter');
@@ -16,8 +17,6 @@ function startGame(){
     let plant = document.getElementById('plant').value;
     let animal = document.getElementById('animal').value;
     let river = document.getElementById('river').value;
-    let err = document.getElementById('err').value;
-    
 
     if(flag == 1){
     record(name, country, plant, animal, river, first_player);
@@ -33,6 +32,11 @@ function startGame(){
     record(name, country, plant, animal, river, therd_player);
     hod.innerHTML = "ХОДИТ ПЕРВЫЙ ИГРОК";
     }
+    document.getElementById('name').value = "";
+    document.getElementById('country').value = "";
+    document.getElementById('plant').value = "";
+    document.getElementById('animal').value = "";
+    document.getElementById('river').value = "";
 }
 
 function record(name, country, plant, animal, river, arr){
@@ -50,8 +54,6 @@ function record(name, country, plant, animal, river, arr){
 
 function count(){
     flag++;
-    random();
-    html_letter.innerHTML = "Буква " + letter;
     for (let i = 1; i < 6; i++){
         let first = first_player[i], second = second_player[i], therd = therd_player[i];
         if(check(first, second)){
@@ -73,6 +75,9 @@ function count(){
             second_player[0] += 1;
         }
     }
+    random();
+    html_letter.innerHTML = "Буква " + letter;
+    results();
 }
 
 function check(one, two){
@@ -81,8 +86,10 @@ function check(one, two){
         if(one[i] == two[i])
         replay++;
     }
-    if(replay == one.length)
-    return false;
+    if(replay == one.length && replay == two.length){
+
+        return false;
+    }
     else
     return true;
 }
@@ -91,5 +98,20 @@ function random(){
     let min = Math.ceil(0);
     let max = Math.floor(alphabet.length);
     letter = alphabet[Math.floor(Math.random() * (max - min) + min)];
-    console.log(letter);
+}
+
+function results(){
+    res.innerHTML += "1-й ИГРОК - " + first_player[0] + " баллов:   ";
+    print_res(first_player);
+    res.innerHTML += "2-й ИГРОК - " + second_player[0] + " баллов:  ";
+    print_res(second_player);
+    res.innerHTML += "3-й ИГРОК - " + therd_player[0] + " баллов:   ";
+    print_res(therd_player);
+    res.innerHTML += '</br>';
+}
+function print_res(palyer){
+    for (let i = 1; i < palyer.length; i++){
+        res.innerHTML += palyer[i] + "  ";
+    }
+    res.innerHTML += '</br>';
 }
