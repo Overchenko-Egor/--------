@@ -1,11 +1,78 @@
 let flag = 1;
-let first_player = [0, "", "", "", "", ""];
-let second_player = [0, "", "", "", "", ""];
-let therd_player = [0, "", "", "", "", ""];
+//let first_player = [0, "", "", "", "", ""];
+//let second_player = [0, "", "", "", "", ""];
+//let therd_player = [0, "", "", "", "", ""];
 let alphabet = "абвгдежзиклмнопрстуфхцчшэюя";
 let letter = "";
 let hod = document.getElementById('hod');
 let res = document.getElementById('results');
+
+
+class LinkedListNode {
+    constructor(value, next = null) {
+      this.value = value;
+      this.next = next;
+    }
+  
+    toString() {
+      return this.value;
+    }
+  }
+
+  class LinkedList {
+    constructor() {
+      this.head = null;
+      this.tail = null;
+    }
+    append (value){
+        const newNode = new LinkedListNode(value);
+
+        if(!this.head || !this.tail){
+            this.head = newNode;
+            this.tail = newNode;
+
+            return this;
+        }
+
+        this.tail.next = newNode;
+        this.tail = newNode;
+
+        return this;
+    }
+
+    toArray(){
+        const nodes = [];
+        let currentNode = this.head;
+        while(currentNode){
+            nodes.push(currentNode);
+            currentNode = currentNode.next;
+        }
+        return nodes;
+    }
+
+    toString(){
+        return this.toArray().map(node => node.toString()).toString();
+    }
+  }
+
+  const first_player = new LinkedList();
+  fillList(first_player);
+
+  const second_player = new LinkedList();
+  fillList(second_player);
+
+  const therd_player = new LinkedList();
+  fillList(therd_player);
+
+  function fillList(player){
+    player.append(0).append('').append('').append('').append('').append('');
+
+    let currentNode = player.head;
+    while (currentNode !== null) {
+    console.log(currentNode.value);
+    currentNode = currentNode.next;
+    }
+  }
 
 random();
 let html_letter = document.getElementById('letter');
@@ -39,12 +106,31 @@ function startGame(){
     document.getElementById('river').value = "";
 }
 
-function record(name, country, plant, animal, river, arr){
-    arr[1] = name;
-    arr[2] = country;
-    arr[3] = plant;
-    arr[4] = animal;
-    arr[5] = river;
+function record(name, country, plant, animal, river, player){
+
+    let j = 1;
+    let current = player.head;
+    current = current.next;
+
+    while (current != null) {
+        switch(j){
+            case 1: player.value = name;
+                    break;
+            case 2: player.value = country;
+                    break;
+            case 3: player.value = plant;
+                    break;
+            case 4: player.value = animal;
+                    break;
+            case 5: player.value = river;
+                    break;
+            default: break;
+        }
+        console.log(current.value);
+        current = current.next;
+        j++;
+    }
+
     flag++;
     if(flag == 4) {
         flag = 0;
@@ -53,28 +139,40 @@ function record(name, country, plant, animal, river, arr){
 }
 
 function count(){
-    flag++;
-    for (let i = 1; i < 6; i++){
-        let first = first_player[i], second = second_player[i], therd = therd_player[i];
+
+    let currentFirst = first_player.head;
+    currentFirst = currentFirst.next;
+
+    let currentSecond = second_player.head;
+    currentSecond = currentSecond.next;
+
+    let currentTherd = therd_player.head;
+    currentTherd = currentTherd.next;
+
+    while (currentFirst != null) {
+        let first = currentFirst.value, second = currentSecond.value, therd = currentTherd.value;
         if(check(first, second)){
             if(first[0] == letter)
-            first_player[0] += 1;
+            currentFirst.head.value += 1;
             if(second[0] == letter)
-            second_player[0] += 1;
+            currentSecond.head.value += 1;
         }
         if(check(first, therd)){
             if(first[0] == letter)
-            first_player[0] += 1;
+            currentFirst.head.value += 1;
             if(therd[0] == letter)
-            therd_player[0] += 1;
+            currentTherd.head.value += 1;
         }
         if(check(second, therd)){
-            if(therd[i] == letter)
-            therd_player[0] += 1;
+            if(therd[0] == letter)
+            currentTherd.head.value += 1;
             if(second[0] == letter)
-            second_player[0] += 1;
+            currentSecond.head.value += 1;
         }
+        currentFirst = currentFirst.next;
     }
+
+    flag++;
     random();
     html_letter.innerHTML = "Буква " + letter;
     results();
@@ -101,17 +199,27 @@ function random(){
 }
 
 function results(){
-    res.innerHTML += "1-й ИГРОК - " + first_player[0] + " баллов:   ";
+    res.innerHTML += "1-й ИГРОК - " + first_player.head.value + " баллов:   ";
     print_res(first_player);
-    res.innerHTML += "2-й ИГРОК - " + second_player[0] + " баллов:  ";
+    res.innerHTML += "2-й ИГРОК - " + second_player.head.value + " баллов:  ";
     print_res(second_player);
-    res.innerHTML += "3-й ИГРОК - " + therd_player[0] + " баллов:   ";
+    res.innerHTML += "3-й ИГРОК - " + therd_player.head.value + " баллов:   ";
     print_res(therd_player);
     res.innerHTML += '</br>';
 }
 function print_res(palyer){
-    for (let i = 1; i < palyer.length; i++){
-        res.innerHTML += palyer[i] + "  ";
+
+    let current = player.head;
+    current = current.next;
+
+    while (current != null){
+        res.innerHTML += current.toString() + "  ";
     }
     res.innerHTML += '</br>';
 }
+/*
+задание 
+комменты 
+верстка html
+
+ */
